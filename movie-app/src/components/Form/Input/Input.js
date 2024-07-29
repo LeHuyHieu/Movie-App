@@ -17,7 +17,9 @@ const Input = ({
     isFocused = false,
     isInvalid = false,
     isValid = false,
+    isDisabled = false,
     options = [],
+    error = '',
     ...props }) => {
     const commonProps = {
         name,
@@ -32,9 +34,11 @@ const Input = ({
                 <textarea
                     {...commonProps}
                     value={value}
+                    disabled={isDisabled}
                     onChange={onChange}
                     placeholder={placeholder}
                 />
+                {error && <div className={cx("invalid-feedback")}>{error}</div>}
             </>
         );
     }
@@ -45,6 +49,7 @@ const Input = ({
                 <select
                     {...commonProps}
                     value={value}
+                    disabled={isDisabled}
                     onChange={onChange}
                 >
                     {options.map((option, index) => (
@@ -53,6 +58,7 @@ const Input = ({
                         </option>
                     ))}
                 </select>
+                {error && <div className={cx("invalid-feedback")}>{error}</div>}
             </>
         );
     }
@@ -65,8 +71,10 @@ const Input = ({
                 value={value}
                 onChange={onChange}
                 onBlur={onBlur}
+                disabled={isDisabled}
                 placeholder={placeholder}
             />
+            {error && <div className={cx("invalid-feedback")}>{error}</div>}
         </>
     );
 };
@@ -80,6 +88,7 @@ Input.propTypes = {
     isFocused: PropTypes.bool,
     isInvalid: PropTypes.bool,
     isValid: PropTypes.bool,
+    isDisabled: PropTypes.bool,
     validationFn: PropTypes.func,
     options: PropTypes.arrayOf(
         PropTypes.shape({
@@ -87,6 +96,7 @@ Input.propTypes = {
             label: PropTypes.string.isRequired,
         })
     ),
+    error: PropTypes.string,
 };
 
 export default Input;
