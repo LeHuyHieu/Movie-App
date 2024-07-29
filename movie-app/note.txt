@@ -1,0 +1,40 @@
+Cài đặt bable
+npm install --save-dev babel-plugin-module-resolver
+
+/* .babelrc */
+{
+    "plugins": [
+        ["module-resolver", {
+            "alias": {
+                "@": "./src"
+            }
+        }]
+    ]
+}
+
+tự động nhắc 
+Editors autocompletion
+/* jsconfig.json */
+
+{
+    "compilerOptions": {
+        "baseUrl": ".",
+        "paths": {
+            "@/*": ["src/*"]
+        }
+    }
+}
+
+cấu hình react-app-rewired
+customize webpack config
+npm i customize-cra react-app-rewired -d
+
+/* config-overrides.js */
+const { override, useBabelRc } = require("customize-cra");
+
+module.exports = override(
+    useBabelRc()
+);
+
+cài classnames 
+npm install classnames
