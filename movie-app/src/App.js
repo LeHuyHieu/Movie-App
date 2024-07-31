@@ -5,6 +5,7 @@ import { publicRoutes, privateRoutes } from './routes';
 
 import '@/app.module.scss';
 import { BackendLayout, FrontendLayout } from './layouts';
+import PageNotFound from '@/pages/PageNotFound';
 
 function App() {
   return (
@@ -44,6 +45,7 @@ function App() {
               </Layout>
             } />
           })}
+          <Route path="*" element={<PageNotFound />} />
         </Routes>
       </div>
     </Router>

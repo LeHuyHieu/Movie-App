@@ -9,57 +9,22 @@ const apiClient = axios.create({
     },
 });
 
-// GET Request
-export const fetchData = async (endpoint) => {
+const request = async (method, endpoint, data = null) => {
     try {
-        const response = await apiClient.get(endpoint);
+        const response = await apiClient({
+            method,
+            url: endpoint,
+            data,
+        });
         return response.data;
     } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error(`Error with ${method.toUpperCase()} request to ${endpoint}:`, error);
         throw error;
     }
 };
 
-// POST Request
-export const postData = async (endpoint, data) => {
-    try {
-        const response = await apiClient.post(endpoint, data);
-        return response.data;
-    } catch (error) {
-        console.error('Error posting data:', error);
-        throw error;
-    }
-};
-
-// PUT Request (Thay thế tài nguyên)
-export const putData = async (endpoint, data) => {
-    try {
-        const response = await apiClient.put(endpoint, data);
-        return response.data;
-    } catch (error) {
-        console.error('Error putting data:', error);
-        throw error;
-    }
-};
-
-// PATCH Request (Cập nhật một phần tài nguyên)
-export const patchData = async (endpoint, data) => {
-    try {
-        const response = await apiClient.patch(endpoint, data);
-        return response.data;
-    } catch (error) {
-        console.error('Error patching data:', error);
-        throw error;
-    }
-};
-
-// DELETE Request
-export const deleteData = async (endpoint) => {
-    try {
-        const response = await apiClient.delete(endpoint);
-        return response.data;
-    } catch (error) {
-        console.error('Error deleting data:', error);
-        throw error;
-    }
-};
+export const getData = (endpoint) => request('get', endpoint);
+export const postData = (endpoint, data) => request('post', endpoint, data);
+export const putData = (endpoint, data) => request('put', endpoint, data);
+export const patchData = (endpoint, data) => request('patch', endpoint, data);
+export const deleteData = (endpoint) => request('delete', endpoint);

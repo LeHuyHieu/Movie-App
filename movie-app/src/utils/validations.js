@@ -1,11 +1,11 @@
-export const validateRequired = (value) => {
+const validateRequired = (value) => {
     if (!value.trim()) {
         return 'This field is required';
     }
     return '';
 };
 
-export const validateEmail = (value) => {
+const validateEmail = (value) => {
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!value) {
         return 'This field is required';
@@ -16,7 +16,7 @@ export const validateEmail = (value) => {
     return '';
 };
 
-export const validateMinLength = (minLength) => {
+const validateMinLength = (minLength) => {
     return (value) => {
         if (!value) {
             return 'This field is required';
@@ -28,7 +28,7 @@ export const validateMinLength = (minLength) => {
     };
 };
 
-export const validateConfirmPassword = (password, confirmPassword) => {
+const validateConfirmPassword = (password, confirmPassword) => {
     if (!confirmPassword) {
         return 'Confirm Password is required';
     }
@@ -40,3 +40,12 @@ export const validateConfirmPassword = (password, confirmPassword) => {
     }
     return '';
 };
+
+const validations = {
+    validateRequired,
+    validateEmail,
+    validateMinLength,
+    validateConfirmPassword
+}
+
+export default validations;

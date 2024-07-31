@@ -14,7 +14,7 @@ const Button = forwardRef(({
     iconRight = '',
     iconLeft = '',
     className = '',
-    disabled = false,
+    isDisabled = false,
     children,
     onClick,
     ...passProps
@@ -25,8 +25,7 @@ const Button = forwardRef(({
         ...passProps
     }
 
-    //Remove event listeners btn is disabled
-    if (disabled) {
+    if (isDisabled) {
         Object.keys(props).forEach(key => {
             if (key.startsWith("on") && typeof props[key] === 'function') {
                 delete props[key];
@@ -47,7 +46,7 @@ const Button = forwardRef(({
     });
 
     return (
-        <Component ref={ref} className={classes} {...props}>
+        <Component ref={ref} disabled={isDisabled} className={classes} {...props}>
             {iconLeft && <span className={cx("iconLeft")}><FontAwesomeIcon icon={["fa", iconLeft]} /></span>}
             <span>{children}</span>
             {iconRight && <span className={cx("iconRight")}><FontAwesomeIcon icon={["fa", iconRight]} /></span>}
@@ -61,7 +60,7 @@ Button.propTypes = {
     className: PropTypes.string,
     iconRight: PropTypes.string,
     iconLeft: PropTypes.string,
-    disabled: PropTypes.bool,
+    isDisabled: PropTypes.bool,
     children: PropTypes.node.isRequired,
     onClick: PropTypes.func,
 }

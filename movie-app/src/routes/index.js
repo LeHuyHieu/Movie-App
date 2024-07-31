@@ -6,7 +6,7 @@ import { BackendLayout, FrontendLayout } from '@/layouts';
 //Pages
 //Frontend
 import Home from '@/pages/Frontend/Home';
-import Login from '@/pages/Auth/Frontend/Login';
+import { Login } from '@/pages/Auth/Frontend/Login';
 import Register from '@/pages/Auth/Frontend/Register';
 //Backend
 import Dashboard from '@/pages/Backend/Dashboard';
