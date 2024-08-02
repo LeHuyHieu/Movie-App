@@ -1,18 +1,19 @@
 import { useState, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom/dist';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 import { postData } from '@/services/api';
 import { validations } from '@/utils';
 import config from '@/config';
 
-const useAuth = (layout = 'register') => {
+const useAuthForm = (layout = 'register') => {
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(false);
 
     const initialFormData = layout === 'login'
         ? { email: '', password: '', remembered: false }
         : { email: '', password: '', name: '', password_confirmation: '' };
-    
+
     const initialErrors = layout === 'login'
         ? { email: '', password: '' }
         : { email: '', password: '', name: '', password_confirmation: '' };
@@ -75,6 +76,7 @@ const useAuth = (layout = 'register') => {
 
         setErrors(validationErrors);
         if (Object.values(validationErrors).every((err) => err === '')) {
+            setLoading(true);
             try {
                 const result = await postData(config.routes.register, formData);
                 console.log(result);
@@ -87,6 +89,8 @@ const useAuth = (layout = 'register') => {
             } catch (error) {
                 console.error('Error posting data:', error.response?.data || error.message);
                 toast.error("Register failed. Please try again.");
+            } finally {
+                setLoading(false);
             }
         }
     };
@@ -100,9 +104,11 @@ const useAuth = (layout = 'register') => {
 
         setErrors(validationErrors);
         if (Object.values(validationErrors).every((err) => err === '')) {
+            setLoading(true);
             try {
                 const result = await postData(config.routes.login, formData);
                 if (result) {
+                    console.log(result);
                     const token = result.token;
                     localStorage.setItem('authToken', token);
                     navigate(config.routes.home);
@@ -111,6 +117,8 @@ const useAuth = (layout = 'register') => {
             } catch (error) {
                 console.error('Error posting data:', error.response?.data || error.message);
                 toast.error("Login failed. Please try again.");
+            } finally {
+                setLoading(false);
             }
         }
     };
@@ -136,6 +144,7 @@ const useAuth = (layout = 'register') => {
     return {
         formData,
         errors,
+        loading,
         handleChange,
         handleBlur,
         handleRegister,
@@ -144,4 +153,4 @@ const useAuth = (layout = 'register') => {
     };
 }
 
-export default useAuth;
+export default useAuthForm;

@@ -13,7 +13,7 @@ function SocialButtons() {
         <div className="text-center">
             <p>or sign in with:</p>
             {SOCIAL_BUTTONS.map((item, index) => {
-                return <Button type="button" key={index} className={cx("btn-link btn-floating mx-1")}>
+                return <Button type="button" key={index} className={cx("btn-link btn btn-floating mx-1")}>
                     <FontAwesomeIcon icon={["fab", item.icon]} />
                 </Button>
             })}

@@ -13,6 +13,7 @@ const Button = forwardRef(({
     href,
     iconRight = '',
     iconLeft = '',
+    iconSm = false,
     className = '',
     isDisabled = false,
     children,
@@ -41,15 +42,15 @@ const Button = forwardRef(({
         Component = "a";
     }
 
-    const classes = cx("btn", {
+    const classes = cx("", {
         [className]: className,
     });
-
+    
     return (
         <Component ref={ref} disabled={isDisabled} className={classes} {...props}>
-            {iconLeft && <span className={cx("iconLeft")}><FontAwesomeIcon icon={["fa", iconLeft]} /></span>}
+            {iconLeft && <span className={cx("iconLeft", iconSm && "icon-sm")}><FontAwesomeIcon icon={iconLeft} /></span>}
             <span>{children}</span>
-            {iconRight && <span className={cx("iconRight")}><FontAwesomeIcon icon={["fa", iconRight]} /></span>}
+            {iconRight && <span className={cx("iconRight", iconSm && "icon-sm")}><FontAwesomeIcon icon={iconRight} /></span>}
         </Component >
     );
 });
@@ -58,9 +59,10 @@ Button.propTypes = {
     to: PropTypes.string,
     href: PropTypes.string,
     className: PropTypes.string,
-    iconRight: PropTypes.string,
-    iconLeft: PropTypes.string,
+    iconRight: PropTypes.array,
+    iconLeft: PropTypes.array,
     isDisabled: PropTypes.bool,
+    iconSm: PropTypes.bool,
     children: PropTypes.node.isRequired,
     onClick: PropTypes.func,
 }

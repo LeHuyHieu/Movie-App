@@ -1,0 +1,29 @@
+.iconLeft,
+.iconRight {
+    display: inline-block;
+    width: 18px;
+    max-width: 18px;
+    height: auto;
+    font-size: 16px;
+    line-height: 1.2;
+    text-align: center;
+}
+.iconLeft {
+    margin-right: 0.5rem;
+}
+.iconRight {
+    margin-left: 0.5rem;
+}
+
+.icon-sm {
+    font-size: 12px;
+    width: 12px;
+    max-width: 12px;
+    height: auto;
+}
+.icon-sm.iconLeft {
+    margin-right: 0.25rem;
+}
+.icon-sm.iconRight {
+    margin-left: 0.25rem;
+}

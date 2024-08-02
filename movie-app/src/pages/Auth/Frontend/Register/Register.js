@@ -1,15 +1,18 @@
 import React from 'react';
 import classNames from "classnames/bind";
+import { useTranslation } from "react-i18next";
 
 import { useDocumentTitle } from '@/hooks';
 import style from "@/pages/Auth/Frontend/Auth.module.scss";
 import Form from '@/pages/Auth/Frontend/components/Form';
-import NavbarAuth from '@/components/Navbar/NavbarAuth';
+import { NavbarAuth } from '@/layouts/FrontendLayout/Components/Navbar';
+import '@/i18n';
 
 const cx = classNames.bind(style);
 
 function Register() {
     useDocumentTitle('Register');
+    const { t } = useTranslation();
 
     return (
         <section>
@@ -17,10 +20,10 @@ function Register() {
             <div className={cx("py-3 py-md-5 px-md-5 d-flex align-items-center justify-content-center", "min-h-100vh")} style={{ backgroundColor: "hsl(0, 0%, 96%)" }}>
                 <div className={cx("container")}>
                     <div className={cx("row gx-lg-5 align-items-center")}>
-                        <div className={cx("col-lg-6 mb-5 mb-lg-0")}>
+                        <div className={cx("col-lg-6 d-none d-lg-block mb-5 mb-lg-0")}>
                             <h1 className={cx("my-3 my-md-5 display-3 fw-bold ls-tight")}>
-                                The best offer <br />
-                                <span className={cx("text-primary")}>for your business</span>
+                                {t('the_best_offer') } <br />
+                                <span className={cx("text-primary")}>{t('for_your_business') }</span>
                             </h1>
                             <p style={{ color: "hsl(217, 10%, 50.8%)" }}>
                                 Lorem ipsum dolor sit amet consectetur adipisicing elit.

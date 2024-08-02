@@ -8,6 +8,8 @@ import { BackendLayout, FrontendLayout } from '@/layouts';
 import Home from '@/pages/Frontend/Home';
 import { Login } from '@/pages/Auth/Frontend/Login';
 import Register from '@/pages/Auth/Frontend/Register';
+//Frontend auth
+import { UserProfile } from '@/pages/Frontend/Users';
 //Backend
 import Dashboard from '@/pages/Backend/Dashboard';
 import LoginAdmin from '@/pages/Auth/Backend/Login';
@@ -41,6 +43,13 @@ const privateRoutes = [
         path: config.routes.dashboard,
         component: Dashboard,
         layout: BackendLayout,
+        role: 'admin',
+    },
+    {
+        path: config.routes.user,
+        component: UserProfile,
+        layout: FrontendLayout,
+        role: 'user',
     },
 ];
 

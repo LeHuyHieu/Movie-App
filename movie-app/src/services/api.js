@@ -16,7 +16,7 @@ const request = async (method, endpoint, data = null) => {
             url: endpoint,
             data,
         });
-        return response.data;
+        return response.data.data;
     } catch (error) {
         console.error(`Error with ${method.toUpperCase()} request to ${endpoint}:`, error);
         throw error;

@@ -20,7 +20,7 @@ function NavbarAuth({ layout = 'register' }) {
                                 return null;
                             }
 
-                            return <Button to={item.path} key={index} className={cx("nav-item")} >
+                            return <Button to={item.path} key={index} className={cx("btn nav-item")} >
                                 <FontAwesomeIcon icon={["fa-solid", item.icon]} />
                                 <span className={cx("ps-2")}>{item.name}</span>
                             </Button>

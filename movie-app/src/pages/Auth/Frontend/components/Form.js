@@ -2,7 +2,7 @@ import classNames from "classnames/bind";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import config from "@/config";
-import { useAuth } from "@/hooks";
+import { useAuthForm } from "@/hooks";
 import Input from "@/components/Form/Input";
 import Button from "@/components/Form/Button";
 import SocialButtons from "./SocialButtons";
@@ -13,12 +13,13 @@ function Form({ layout = 'register', ...props }) {
     const {
         formData,
         errors,
+        loading,
         handleChange,
         handleBlur,
         handleRegister,
         handleLogin,
         isDisabled,
-    } = useAuth(layout);
+    } = useAuthForm(layout);
     
     return (
         <form {...props} onSubmit={layout === 'register' ? handleRegister : handleLogin}>
@@ -109,7 +110,7 @@ function Form({ layout = 'register', ...props }) {
                     </div>
                     <Button
                         to={config.routes.forgotPassword}
-                        className={cx("btn-link p-0 text-decoration-none")}
+                        className={cx("btn-link btn p-0 text-decoration-none")}
                     >
                         Forgot password?
                     </Button>
@@ -144,9 +145,16 @@ function Form({ layout = 'register', ...props }) {
             <Button
                 type="submit"
                 isDisabled={isDisabled()}
-                className={cx("btn-primary w-100 btn-block mb-4")}
+                className={cx("btn-primary btn w-100 btn-block mb-4")}
             >
-                <FontAwesomeIcon icon={["fas", "fa-key"]} /> {layout === 'register' ? 'Sign up' : 'Sign in'}
+                {loading ? (
+                    <FontAwesomeIcon icon={["fas", "fa-spinner"]} spin /> 
+                ) : (
+                    <>
+                        <FontAwesomeIcon icon={["fas", "fa-key"]} />
+                        {layout === 'register' ? 'Sign up' : 'Sign in'}
+                    </>
+                )}
             </Button>
 
             <SocialButtons />

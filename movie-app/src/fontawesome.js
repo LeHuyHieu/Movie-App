@@ -13,6 +13,11 @@ import {
     faArrowRightFromBracket,
     faPenToSquare,
     faHouse,
+    faGear,
+    faHeart,
+    faAngleDown,
+    faMagnifyingGlass,
+    faSpinner,
 } from '@fortawesome/free-solid-svg-icons';
 
 import { library } from '@fortawesome/fontawesome-svg-core'; 
@@ -30,4 +35,9 @@ library.add(
     faArrowRightFromBracket,
     faPenToSquare,
     faHouse,
+    faGear,
+    faHeart,
+    faAngleDown,
+    faMagnifyingGlass,
+    faSpinner,
 );
