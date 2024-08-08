@@ -1,51 +1,53 @@
-const validateRequired = (value) => {
-    if (!value.trim()) {
-        return 'This field is required';
-    }
-    return '';
-};
-
-const validateEmail = (value) => {
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!value) {
-        return 'This field is required';
-    }
-    if (!emailPattern.test(value)) {
-        return 'Invalid email address';
-    }
-    return '';
-};
-
-const validateMinLength = (minLength) => {
-    return (value) => {
-        if (!value) {
-            return 'This field is required';
-        }
-        if (value.length < minLength) {
-            return `Value must be at least ${minLength} characters long.`;
+const useValidations = () => {
+    const validateRequired = (value) => {
+        if (!value.trim()) {
+            return 'this_field_is_required';
         }
         return '';
     };
+
+    const validateEmail = (value) => {
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!value) {
+            return 'this_field_is_required';
+        }
+        if (!emailPattern.test(value)) {
+            return 'invalid_email_address';
+        }
+        return '';
+    };
+
+    const validateMinLength = (minLength) => {
+        return (value) => {
+            if (!value) {
+                return 'this_field_is_required';
+            }
+            if (value.length < minLength) {
+                return `value_must_be_at_least_${minLength}_characters_long`;
+            }
+            return '';
+        };
+    };
+
+    const validateConfirmPassword = (password, confirmPassword) => {
+        if (!confirmPassword) {
+            return 'confirm_password_is_required';
+        }
+        if (!password) {
+            return 'this_field_is_required';
+        }
+        if (password !== confirmPassword) {
+            return 'passwords_do_not_match';
+        }
+        return '';
+    };
+
+    return {
+        validateRequired,
+        validateEmail,
+        validateMinLength,
+        validateConfirmPassword
+    }
 };
 
-const validateConfirmPassword = (password, confirmPassword) => {
-    if (!confirmPassword) {
-        return 'Confirm Password is required';
-    }
-    if (!password) {
-        return 'Password is required';
-    }
-    if (password !== confirmPassword) {
-        return 'Passwords do not match';
-    }
-    return '';
-};
-
-const validations = {
-    validateRequired,
-    validateEmail,
-    validateMinLength,
-    validateConfirmPassword
-}
-
-export default validations;
+export default useValidations;

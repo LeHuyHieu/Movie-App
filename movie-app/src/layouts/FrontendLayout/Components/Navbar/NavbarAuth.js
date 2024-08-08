@@ -15,8 +15,7 @@ function NavbarAuth({ layout = 'register' }) {
                 <div className="container-fluid">
                     <div>
                         {ROUTER_NAVBAR_AUTH.map((item, index) => {
-                            const capitalizedStr = layout.charAt(0).toUpperCase() + layout.slice(1);
-                            if (capitalizedStr === item.name) {
+                            if (layout === item.name) {
                                 return null;
                             }
 

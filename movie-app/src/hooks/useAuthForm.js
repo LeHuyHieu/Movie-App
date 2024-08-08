@@ -5,10 +5,13 @@ import { toast } from 'react-toastify';
 import { postData } from '@/services/api';
 import { validations } from '@/utils';
 import config from '@/config';
+import { useTranslate } from '@/hooks';
 
 const useAuthForm = (layout = 'register') => {
     const navigate = useNavigate();
+    const { t } = useTranslate();
     const [loading, setLoading] = useState(false);
+    const { validateRequired, validateEmail, validateMinLength, validateConfirmPassword } = validations();
 
     const initialFormData = layout === 'login'
         ? { email: '', password: '', remembered: false }
@@ -27,26 +30,26 @@ const useAuthForm = (layout = 'register') => {
 
         switch (name) {
             case 'name':
-                error = validations.validateMinLength(6)(value);
+                error = validateMinLength(6)(value);
                 break;
             case 'email':
-                error = validations.validateEmail(value);
+                error = validateEmail(value);
                 break;
             case 'password':
-                error = validations.validateMinLength(6)(value);
+                error = validateMinLength(6)(value);
                 break;
             case 'password_confirmation':
-                error = validations.validateConfirmPassword(formData.password, value);
+                error = validateConfirmPassword(formData.password, value);
                 break;
             default:
-                error = validations.validateRequired(value);
+                error = validateRequired(value);
         }
 
         setErrors((prevErrors) => ({
             ...prevErrors,
             [name]: error,
         }));
-    }, [formData]);
+    }, [formData, validateConfirmPassword, validateEmail, validateMinLength, validateRequired]);
 
     const handleChange = useCallback((e) => {
         const { name, type, checked, value } = e.target;
@@ -68,10 +71,10 @@ const useAuthForm = (layout = 'register') => {
     const handleRegister = async (e) => {
         e.preventDefault();
         const validationErrors = {
-            name: validations.validateRequired(formData.name),
-            email: validations.validateEmail(formData.email),
-            password: validations.validateMinLength(6)(formData.password),
-            password_confirmation: validations.validateConfirmPassword(formData.password, formData.password_confirmation),
+            name: validateRequired(formData.name),
+            email: validateEmail(formData.email),
+            password: validateMinLength(6)(formData.password),
+            password_confirmation: validateConfirmPassword(formData.password, formData.password_confirmation),
         };
 
         setErrors(validationErrors);
@@ -84,11 +87,11 @@ const useAuthForm = (layout = 'register') => {
                     const token = result.token;
                     localStorage.setItem('authToken', token);
                     navigate(config.routes.home);
-                    toast.success("Register successful!");
+                    toast.success(t("register_successful")+"!");
                 }
             } catch (error) {
                 console.error('Error posting data:', error.response?.data || error.message);
-                toast.error("Register failed. Please try again.");
+                toast.error("register_failed._please_try_again.");
             } finally {
                 setLoading(false);
             }
@@ -98,8 +101,8 @@ const useAuthForm = (layout = 'register') => {
     const handleLogin = async (e) => {
         e.preventDefault();
         const validationErrors = {
-            email: validations.validateEmail(formData.email),
-            password: validations.validateMinLength(6)(formData.password),
+            email: validateEmail(formData.email),
+            password: validateMinLength(6)(formData.password),
         };
 
         setErrors(validationErrors);
@@ -112,11 +115,11 @@ const useAuthForm = (layout = 'register') => {
                     const token = result.token;
                     localStorage.setItem('authToken', token);
                     navigate(config.routes.home);
-                    toast.success("Login successful!");
+                    toast.success(t("login_successful") + "!");
                 }
             } catch (error) {
                 console.error('Error posting data:', error.response?.data || error.message);
-                toast.error("Login failed. Please try again.");
+                toast.error(t("login_failed._please_try_again."));
             } finally {
                 setLoading(false);
             }

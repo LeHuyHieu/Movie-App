@@ -2,7 +2,7 @@ import classNames from "classnames/bind";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import config from "@/config";
-import { useAuthForm } from "@/hooks";
+import { useAuthForm, useTranslate } from "@/hooks";
 import Input from "@/components/Form/Input";
 import Button from "@/components/Form/Button";
 import SocialButtons from "./SocialButtons";
@@ -20,12 +20,13 @@ function Form({ layout = 'register', ...props }) {
         handleLogin,
         isDisabled,
     } = useAuthForm(layout);
+    const { t } = useTranslate();
     
     return (
         <form {...props} onSubmit={layout === 'register' ? handleRegister : handleLogin}>
             {layout === 'register' && (
                 <div className={cx("form-outline mb-4")}>
-                    <label className={cx("form-label")} htmlFor="name">Full name</label>
+                    <label className={cx("form-label")} htmlFor="name">{ t('full_name') }</label>
                     <div className="input-group mb-3">
                         <span className="input-group-text" id="basic-addon1">
                             <FontAwesomeIcon icon={["fas", "fa-user"]} />
@@ -40,7 +41,7 @@ function Form({ layout = 'register', ...props }) {
                             className={cx("form-control")}
                             isFocused={layout === 'register' ? true : false}
                             onBlur={handleBlur}
-                            error={errors.name}
+                            error={t(errors.name)}
                             isInvalid={errors.name !== ''}
                             isValid={errors.name === '' && formData.name.length >= 6}
                         />
@@ -49,7 +50,7 @@ function Form({ layout = 'register', ...props }) {
             )}
 
             <div className={cx("form-outline mb-4")}>
-                <label className={cx("form-label")} htmlFor="email">Email address</label>
+                <label className={cx("form-label")} htmlFor="email">{ t('email_address') }</label>
                 <div className="input-group mb-3">
                     <span className="input-group-text" id="basic-addon1">
                         <FontAwesomeIcon icon={["fas", "fa-at"]} />
@@ -64,7 +65,7 @@ function Form({ layout = 'register', ...props }) {
                         className={cx("form-control")}
                         onBlur={handleBlur}
                         isFocused={layout === 'login' ? true : false}
-                        error={errors.email}
+                        error={t(errors.email)}
                         isInvalid={errors.email !== ''}
                         isValid={errors.email === '' && formData.email.length > 0}
                     />
@@ -72,7 +73,7 @@ function Form({ layout = 'register', ...props }) {
             </div>
 
             <div className={cx("form-outline mb-4")}>
-                <label className={cx("form-label")} htmlFor="password">Password</label>
+                <label className={cx("form-label")} htmlFor="password">{ t('password') }</label>
                 <div className="input-group mb-3">
                     <span className="input-group-text" id="basic-addon1">
                         <FontAwesomeIcon icon={["fas", "fa-lock"]} />
@@ -86,7 +87,7 @@ function Form({ layout = 'register', ...props }) {
                         placeholder="Enter password"
                         className={cx("form-control")}
                         onBlur={handleBlur}
-                        error={errors.password}
+                        error={t(errors.password)}
                         isInvalid={errors.password !== ''}
                         isValid={errors.password === '' && formData.password.length > 0}
                     />
@@ -105,21 +106,21 @@ function Form({ layout = 'register', ...props }) {
                             onChange={handleChange}
                         />
                         <label className={cx("form-check-label")} htmlFor="remember">
-                            Remember me
+                            { t('remember_me') }
                         </label>
                     </div>
                     <Button
                         to={config.routes.forgotPassword}
                         className={cx("btn-link btn p-0 text-decoration-none")}
                     >
-                        Forgot password?
+                        { t('forgot_password') }?
                     </Button>
                 </div>
             )}
 
             {layout === 'register' && (
                 <div className={cx("form-outline mb-4")}>
-                    <label className={cx("form-label")} htmlFor="password_confirmation">Confirm password</label>
+                    <label className={cx("form-label")} htmlFor="password_confirmation">{ t('confirm_password') }</label>
                     <div className="input-group mb-3">
                         <span className="input-group-text" id="basic-addon1">
                             <FontAwesomeIcon icon={["fas", "fa-lock"]} />
@@ -134,7 +135,7 @@ function Form({ layout = 'register', ...props }) {
                             className={cx("form-control")}
                             onBlur={handleBlur}
                             isDisabled={formData.password === '' || errors.password !== ''}
-                            error={errors.password_confirmation}
+                            error={t(errors.password_confirmation)}
                             isInvalid={errors.password_confirmation !== ''}
                             isValid={errors.password_confirmation === '' && formData.password_confirmation.length > 0}
                         />
@@ -152,7 +153,7 @@ function Form({ layout = 'register', ...props }) {
                 ) : (
                     <>
                         <FontAwesomeIcon icon={["fas", "fa-key"]} />
-                        {layout === 'register' ? 'Sign up' : 'Sign in'}
+                        {layout === 'register' ? t('sign_up') : t('sign_in')}
                     </>
                 )}
             </Button>

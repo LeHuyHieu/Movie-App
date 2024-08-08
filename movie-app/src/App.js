@@ -9,6 +9,7 @@ import './fontawesome';
 import '@/app.scss';
 import '@/assets/styles/main.module.scss';
 import AppRoutes from '@/routes/AppRoutes';
+import '@/i18n';
 
 function App() {
   return (

@@ -5,12 +5,14 @@ import classNames from "classnames/bind";
 import style from "./Dropdown.module.scss";
 import DropdownItem from "./DropdownItem";
 import Button from "@/components/Form/Button";
+import { useTranslate } from "@/hooks";
 
 const cx = classNames.bind(style);
 
 
 function Dropdown({ children, data, ...props }) {
     const [visible, setVisible] = useState(false);
+    const { t } = useTranslate();
 
     const toggleVisible = () => {
         setVisible(!visible);
@@ -20,7 +22,7 @@ function Dropdown({ children, data, ...props }) {
         data.map((item, index) => (
             <DropdownItem separated={item.separated} key={index} className={cx("dropdown-tippy-item")}>
                 <Button iconLeft={["fa-solid", item.icon]} onClick={item.onClick || null } className={cx("dropdown-tippy-link")} to={item.path || '#'}>
-                    {item.name}
+                    {t(item.name)}
                 </Button>
             </DropdownItem>
         ))

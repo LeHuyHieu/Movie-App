@@ -1,4 +1,5 @@
 import { toast } from "react-toastify";
+import i18next from "i18next";
 import routes from "./routes";
 
 export const SOCIAL_BUTTONS = [
@@ -22,19 +23,19 @@ export const SOCIAL_BUTTONS = [
 
 export const ROUTER_NAVBAR_AUTH = [
     {
-        name: "Home",
+        name: "home",
         path: routes.home,
         icon: "fa-house",
         separated: false,
     },
     {
-        name: "Register",
+        name: "register",
         path: routes.register,
         icon: "fa-pen-to-square",
         separated: false,
     },
     {
-        name: "Login",
+        name: "login",
         path: routes.login,
         icon: "fa-arrow-right-to-bracket",
         separated: false,
@@ -43,19 +44,19 @@ export const ROUTER_NAVBAR_AUTH = [
 
 export const ROUTER_NAVBAR_IS_LOGIN = [
     {
-        name: "Hồ sơ",
+        name: "profile",
         path: routes.user,
         icon: "fa-user",
         separated: false,
     },
     {
-        name: "Yêu thích",
+        name: "favourite",
         path: routes.favourite,
         icon: "fa-heart",
         separated: false,
     },
     {
-        name: "Cài đặt",
+        name: "setting",
         path: routes.setting,
         icon: "fa-gear",
         separated: false,
@@ -67,7 +68,7 @@ export const ROUTER_NAVBAR_IS_LOGIN = [
         separated: true,
         onClick: () => {
             localStorage.removeItem("authToken");
-            toast.success("Logout successfully");
+            toast.success(i18next.t("logout_successfully"));
         },
     },
 ];
